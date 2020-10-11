@@ -58,4 +58,22 @@ $(function () {
            
         })
     })
+    getUserInfo()
+    function getUserInfo() {
+        $.ajax({
+            method: 'GET',
+            url: '/my/userinfo',
+            success: function (res) {
+               
+                if (res.status !== 0) {
+                    return layui.layer.msg(res.message)
+                }
+                // 渲染头像
+                $image
+                    .cropper('destroy') // 销毁旧的裁剪区域
+                    .attr('src', res.data.user_pic) // 重新设置图片路径
+                    .cropper(options) // 重新初始化裁剪区域
+            },
+        })
+    }
 })
